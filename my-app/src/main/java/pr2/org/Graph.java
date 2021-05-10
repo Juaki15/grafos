@@ -45,7 +45,10 @@ public class Graph<V>{
     * @return conjunto de vértices adyacentes.
     ******************************************************************/
     public Set<V> obtainAdjacents(V v) throws Exception{
-    return null; //Este código hay que modificarlo.
+        if (this.adyacencyList.containsKey(v)){
+            return this.adyacencyList.get(v); 
+        }else throw new Exception("No hay vertices adyacentes");
+        //Este código hay que modificarlo.
     }
     /******************************************************************
     * Comprueba si el grafo contiene el vértice dado.
