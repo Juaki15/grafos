@@ -57,7 +57,10 @@ public class Graph<V>{
     * @return ‘true‘ si ‘v‘ es un vértice del grafo.
     ******************************************************************/
     public boolean containsVertex(V v){
-    return true; //Este código hay que modificarlo.
+        if (this.adyacencyList.containsKey(v)){
+            return true;
+        }else return false;
+             //Este código hay que modificarlo.
     }
     /******************************************************************
     * Método ‘toString()‘ reescrito para la clase ‘Grafo.java‘.

@@ -8,6 +8,8 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
+import jdk.internal.jline.internal.TestAccessible;
+
 import org.junit.Before;
 
 import java.util.*;
@@ -93,6 +95,28 @@ public class GraphTest {
         g.addVertex("v2");
         g.addVertex("v3");
         g.addEdge("v1", "v2");
-        assertNull(g.obtainAdjacents("v3"));
+        g.obtainAdjacents("v3");
     }
+
+    @Test
+    public void containsVertexTrue() {
+        g.addVertex("v1");
+        g.containsVertex("v1");
+    }
+
+    @Test
+    public void containsVertexFalse() {
+        g.containsVertex("v1");
+    }
+
+    @Test
+    public void pathExists(){
+        
+    }
+
+    @Test 
+    public void pathDontExists() {
+        
+    }
+
 }
