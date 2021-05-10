@@ -6,6 +6,10 @@ import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertFalse;
 import org.junit.Test;
 
+//import jdk.internal.jline.internal.TestAccessible;
+
+//import jdk.internal.jline.internal.TestAccessible;
+
 import org.junit.Before;
 
 import java.util.*;
@@ -13,35 +17,68 @@ import java.util.*;
 import org.junit.Test;
 
 public class GraphTest {
-     
-    Graph<Integer> gInts;
+    
+    public class Vertice {
+        String value;
+    }
+    
+    Graph<String> g;
 
     @Before
     public void setUp(){
-        gInts = new Graph<Integer>();
+        g = new Graph<String>();
     }
     @Test
 
     public void graphExistsTest(){
-        assertNotNull(gInts);
+        assertNotNull(g);
     }
 
 
     @Test
     public void toStringEmptyTest(){
         String expectedOutput = "Vértice\tConexiones\n";
-        assertEquals(expectedOutput, gInts.toString());
+        assertEquals(expectedOutput, g.toString());
     }
 
     @Test
-    public void addOneVertexTest(){
-        assertTrue(gInts.addVertex(1));
+    public void addOneVertexTestOk(){
+        assertTrue(g.addVertex("v1"));
+        assertFalse(g.addVertex("v1"));
     }
 
     @Test
-    public void toStringOneVertexTest(){
-        gInts.addVertex(1);
-        String expectedOutput = "Vértice\tConexiones\n"+"1\t\n";
-        assertEquals(expectedOutput, gInts.toString());
+    public void addOneVertexTestFail(){
+        assertTrue(g.addVertex("v1"));
+    }
+
+    //*
+    @Test
+    public void toStringTwoVertexTest(){
+        g.addVertex("v1");
+        g.addVertex("v0");
+        String expectedOutput = "Vértice\tConexiones\n"
+            +"v0\t\n"
+            +"v1\t\n";
+        assertEquals(expectedOutput, g.toString());
+    }//*/
+    @Test
+    public void addEdgeOk(){
+        g.addVertex("v1");
+        g.addVertex("v2");
+        assertTrue(g.addEdge("v1","v2"));
+    }
+
+    @Test
+    public void addEdgeFailDuplicated(){
+        g.addVertex("v1");
+        g.addVertex("v2");
+        assertTrue(g.addEdge("v1","v2"));
+        assertFalse(g.addEdge("v1","v2"));
+    }
+    @Test
+    public void addEdgeFailNonExists(){
+        g.addVertex("v1");
+        assertFalse(g.addEdge("v1","v2"));
     }
 }

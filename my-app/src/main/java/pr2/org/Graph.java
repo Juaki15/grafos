@@ -14,10 +14,11 @@ public class Graph<V>{
     * @return ‘true‘ si no estaba anteriormente y ‘false‘ en caso* contrario.
 ******************************************************************/
     public boolean addVertex(V v){
-        if (adyacencyList.containsKey(v)){
+        if (!this.adyacencyList.containsKey(v)){
             this.adyacencyList.put(v, new TreeSet<V>());
-        }
-    return true; //Este código hay que modificarlo.
+            return true;
+        }else return false;
+         //Este código hay que modificarlo.
     }
     /******************************************************************
     * Añade un arco entre los vértices ‘v1‘ y ‘v2‘ al grafo. En
@@ -30,7 +31,12 @@ public class Graph<V>{
     contrario.
     ******************************************************************/
     public boolean addEdge(V v1, V v2){
-    return true; //Este código hay que modificarlo.
+        Set<V> losVertices = this.adyacencyList.get(v1);
+        if (this.adyacencyList.containsKey(v1) && !losVertices.contains(v2) && adyacencyList.containsKey(v2)){
+            losVertices.add(v2);
+            return true;
+        } else return false;
+         //Este código hay que modificarlo.
     }
     /******************************************************************
     * Obtiene el conjunto de vértices adyacentes a ‘v‘.
@@ -56,7 +62,12 @@ public class Graph<V>{
     ******************************************************************/
     @Override
     public String toString(){
-        return "Vértice\tConexiones\n"; //Este código hay que modificarlo.
+        StringBuilder cadena  = new StringBuilder();
+        cadena.append("Vértice\tConexiones\n");
+        for (Object key : this.adyacencyList.keySet()){
+            cadena.append(key.toString() + "\t" /* TODO + mis adjacentes */ + "\n");
+        }
+        return cadena.toString();
     }
 /******************************************************************
 * Obtiene, en caso de que exista, un camino entre ‘v1‘ y ‘v2
@@ -73,5 +84,3 @@ public class Graph<V>{
         return null; //Este código hay que modificarlo.
     }
 }
-
-
