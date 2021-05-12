@@ -8,8 +8,6 @@ import static org.junit.Assert.assertNull;
 
 import org.junit.Test;
 
-import jdk.internal.jline.internal.TestAccessible;
-
 import org.junit.Before;
 
 import java.util.*;
@@ -101,22 +99,45 @@ public class GraphTest {
     @Test
     public void containsVertexTrue() {
         g.addVertex("v1");
-        g.containsVertex("v1");
+        assertTrue(g.containsVertex("v1"));
+
     }
 
     @Test
     public void containsVertexFalse() {
-        g.containsVertex("v1");
+        assertFalse(g.containsVertex("v1"));
     }
 
+    //*
     @Test
     public void pathExists(){
-        
+        g.addVertex("v1");
+        g.addVertex("v2");
+        g.addVertex("v3");
+        g.addEdge("v1", "v2");
+        g.addEdge("v2","v3");
+        List<String> camino = g.onePath("v1","v3");
+        List<String> caminoEsperado = new ArrayList<>();
+        caminoEsperado.add("v1");
+        caminoEsperado.add("v2");
+        caminoEsperado.add("v3");
+        assertEquals(caminoEsperado,camino);
     }
 
     @Test 
     public void pathDontExists() {
-        
-    }
+        g.addVertex("v1");
+        g.addVertex("v2");
+        g.addVertex("v3");
+        g.addEdge("v1", "v2");
+        List<String> camino = g.onePath("v1","v3");
+        assertNull(camino);
+    }//*/
 
+    /*@Test 
+    public void pathExistsOneVertex() {
+        g.addVertex("v1");
+        g.addEdge("v1","v1");
+        g.onePath("v1","v1");
+    }*/
 }

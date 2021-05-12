@@ -1,7 +1,6 @@
 package pr2.org;
 
 import java.util.*;
-//import java.util.TreeSet;
 
 
 public class Graph<V>{
@@ -18,7 +17,6 @@ public class Graph<V>{
             this.adyacencyList.put(v, new TreeSet<V>());
             return true;
         }else return false;
-         //Este código hay que modificarlo.
     }
     /******************************************************************
     * Añade un arco entre los vértices ‘v1‘ y ‘v2‘ al grafo. En
@@ -36,7 +34,6 @@ public class Graph<V>{
             losVertices.add(v2);
             return true;
         } else return false;
-         //Este código hay que modificarlo.
     }
     /******************************************************************
     * Obtiene el conjunto de vértices adyacentes a ‘v‘.
@@ -48,7 +45,6 @@ public class Graph<V>{
         if (this.adyacencyList.containsKey(v)){
             return this.adyacencyList.get(v); 
         }else throw new Exception("No hay vertices adyacentes");
-        //Este código hay que modificarlo.
     }
     /******************************************************************
     * Comprueba si el grafo contiene el vértice dado.
@@ -60,7 +56,6 @@ public class Graph<V>{
         if (this.adyacencyList.containsKey(v)){
             return true;
         }else return false;
-             //Este código hay que modificarlo.
     }
     /******************************************************************
     * Método ‘toString()‘ reescrito para la clase ‘Grafo.java‘.
@@ -87,6 +82,27 @@ public class Graph<V>{
 * pasando por arcos del grafo.
 ******************************************************************/
     public List<V> onePath(V v1, V v2){
-        return null; //Este código hay que modificarlo.
+        List<V> traza = new ArrayList<>();
+        Stack<V> abierta = new Stack<>();
+        abierta.push(v1);
+        traza.add(v1);
+        boolean encontrado = false;
+        List<V> verticesVisitados = new ArrayList<>();
+        while (!abierta.isEmpty() && !encontrado){
+            V verticeActual = abierta.pop();
+            traza.add(verticeActual);
+            verticesVisitados.add(verticeActual);
+            if (verticeActual.equals(v2)) {
+                encontrado = true;
+            } 
+            if (!encontrado){
+                for (V key : this.adyacencyList.keySet()) {
+                    abierta.push(key);
+                }
+            }
+        }
+        if (encontrado = true){
+            return traza;
+        }else return null;
     }
 }
