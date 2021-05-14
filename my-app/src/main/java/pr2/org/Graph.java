@@ -85,23 +85,34 @@ public class Graph<V>{
         List<V> traza = new ArrayList<>();
         Stack<V> abierta = new Stack<>();
         abierta.push(v1);
-        traza.add(v1);
         boolean encontrado = false;
         List<V> verticesVisitados = new ArrayList<>();
         while (!abierta.isEmpty() && !encontrado){
+            
+            //traza.add(v1);
             V verticeActual = abierta.pop();
             traza.add(verticeActual);
             verticesVisitados.add(verticeActual);
+            System.out.println("la traza contiene los vértices: " + traza);
+            System.out.println("vertice :" + verticeActual.toString());
             if (verticeActual.equals(v2)) {
+                System.out.println(verticeActual + " es igual a " + v2);
                 encontrado = true;
             } 
+
             if (!encontrado){
-                for (V key : this.adyacencyList.keySet()) {
+                for (V key : this.adyacencyList.get(verticeActual)) {
                     abierta.push(key);
                 }
             }
+             
+            /*if (verticesVisitados.contains(verticeActual)){
+                traza.remove(verticeActual);
+            }*/
+
+
         }
-        if (encontrado = true){
+        if (encontrado){
             return traza;
         }else return null;
     }

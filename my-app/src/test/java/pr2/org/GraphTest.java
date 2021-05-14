@@ -114,15 +114,20 @@ public class GraphTest {
         g.addVertex("v1");
         g.addVertex("v2");
         g.addVertex("v3");
-        g.addEdge("v1", "v2");
+        g.addVertex("v4");
+        g.addVertex("v5");
+        g.addEdge("v1","v2");
+        g.addEdge("v1","v5");
         g.addEdge("v2","v3");
-        List<String> camino = g.onePath("v1","v3");
+        g.addEdge("v3", "v4");
+        List<String> camino = g.onePath("v1","v4");
         List<String> caminoEsperado = new ArrayList<>();
         caminoEsperado.add("v1");
         caminoEsperado.add("v2");
         caminoEsperado.add("v3");
+        caminoEsperado.add("v4");
         assertEquals(caminoEsperado,camino);
-    }
+    }//*/
 
     @Test 
     public void pathDontExists() {
