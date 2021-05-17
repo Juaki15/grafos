@@ -5,7 +5,7 @@ import java.util.*;
 
 public class Graph<V>{
     //Lista de adyacencia.
-    private Map<V, Set<V>> adyacencyList = new HashMap<>();
+    private Map<V, Set<V>> adjacencyList = new HashMap<>();
     /******************************************************************
     * Añade el vértice ‘v‘ al grafo.
     *
@@ -13,8 +13,8 @@ public class Graph<V>{
     * @return ‘true‘ si no estaba anteriormente y ‘false‘ en caso* contrario.
 ******************************************************************/
     public boolean addVertex(V v){
-        if (!this.adyacencyList.containsKey(v)){
-            this.adyacencyList.put(v, new TreeSet<V>());
+        if (!this.adjacencyList.containsKey(v)){
+            this.adjacencyList.put(v, new TreeSet<V>());
             return true;
         }else return false;
     }
@@ -29,8 +29,8 @@ public class Graph<V>{
     contrario.
     ******************************************************************/
     public boolean addEdge(V v1, V v2){
-        Set<V> losVertices = this.adyacencyList.get(v1);
-        if (this.adyacencyList.containsKey(v1) && !losVertices.contains(v2) && adyacencyList.containsKey(v2)){
+        Set<V> losVertices = this.adjacencyList.get(v1);
+        if (this.adjacencyList.containsKey(v1) && !losVertices.contains(v2) && adjacencyList.containsKey(v2)){
             losVertices.add(v2);
             return true;
         } else return false;
@@ -42,8 +42,8 @@ public class Graph<V>{
     * @return conjunto de vértices adyacentes.
     ******************************************************************/
     public Set<V> obtainAdjacents(V v) throws Exception{
-        if (this.adyacencyList.containsKey(v)){
-            return this.adyacencyList.get(v); 
+        if (this.adjacencyList.containsKey(v)){
+            return this.adjacencyList.get(v); 
         }else throw new Exception("No hay vertices adyacentes");
     }
     /******************************************************************
@@ -53,7 +53,7 @@ public class Graph<V>{
     * @return ‘true‘ si ‘v‘ es un vértice del grafo.
     ******************************************************************/
     public boolean containsVertex(V v){
-        if (this.adyacencyList.containsKey(v)){
+        if (this.adjacencyList.containsKey(v)){
             return true;
         }else return false;
     }
@@ -65,7 +65,7 @@ public class Graph<V>{
     public String toString(){
         StringBuilder cadena  = new StringBuilder();
         cadena.append("Vértice\tConexiones\n");
-        for (Object key : this.adyacencyList.keySet()){
+        for (Object key : this.adjacencyList.keySet()){
             cadena.append(key.toString() + "\t" /* TODO + mis adjacentes */ + "\n");
         }
         return cadena.toString();
@@ -101,17 +101,14 @@ public class Graph<V>{
             } 
 
             if (!encontrado){
-                for (V key : this.adyacencyList.get(verticeActual)) {
+                if (adjacencyList.get(verticeActual).isEmpty()) traza.remove(verticeActual);
+                
+                for (V key : this.adjacencyList.get(verticeActual)) {
                     abierta.push(key);
                 }
             }
-             
-            /*if (verticesVisitados.contains(verticeActual)){
-                traza.remove(verticeActual);
-            }*/
 
-
-        }
+        } 
         if (encontrado){
             return traza;
         }else return null;

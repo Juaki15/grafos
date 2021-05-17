@@ -60,27 +60,27 @@ public class GraphTest {
         assertEquals(expectedOutput, g.toString());
     }//*/
     @Test
-    public void addEdgeOk(){
+    public void addEdgeTestOk(){
         g.addVertex("v1");
         g.addVertex("v2");
         assertTrue(g.addEdge("v1","v2"));
     }
 
     @Test
-    public void addEdgeFailDuplicated(){
+    public void addEdgeTestFailDuplicated(){
         g.addVertex("v1");
         g.addVertex("v2");
         assertTrue(g.addEdge("v1","v2"));
         assertFalse(g.addEdge("v1","v2"));
     }
     @Test
-    public void addEdgeFailNonExists(){
+    public void addEdgeTestFailNonExists(){
         g.addVertex("v1");
         assertFalse(g.addEdge("v1","v2"));
     }
 
     @Test 
-    public void obtainAdjacentsTrue() throws Exception {
+    public void obtainAdjacentsTestTrue() throws Exception {
         g.addVertex("v1");
         g.addVertex("v2");
         g.addEdge("v1", "v2");
@@ -88,7 +88,7 @@ public class GraphTest {
     }
 
     @Test 
-    public void obtainAdjacentsFalse() throws Exception {
+    public void obtainAdjacentsTestFalse() throws Exception {
         g.addVertex("v1");
         g.addVertex("v2");
         g.addVertex("v3");
@@ -97,15 +97,43 @@ public class GraphTest {
     }
 
     @Test
-    public void containsVertexTrue() {
+    public void containsVertexTestTrue() {
         g.addVertex("v1");
         assertTrue(g.containsVertex("v1"));
 
     }
 
     @Test
-    public void containsVertexFalse() {
+    public void containsVertexTestFalse() {
         assertFalse(g.containsVertex("v1"));
+    }
+
+    @Test
+    public void onePathFindsAPath(){
+        System.out.println("\nTest onePathFindsAPath");
+        System.out.println("----------------------");
+        // Se construye el grafo.
+        Graph<Integer> g = new Graph<>();
+        g.addVertex(1);
+        g.addVertex(2);
+        g.addVertex(3);
+        g.addVertex(4);
+        g.addVertex(5);
+        g.addVertex(6);
+
+        g.addEdge(1, 2);
+        g.addEdge(3, 4);
+        g.addEdge(1, 5);
+        g.addEdge(5, 6);
+        g.addEdge(6, 4);
+        // Se construye el camino esperado.
+        List<Integer> expectedPath = new ArrayList<>();
+        expectedPath.add(1);
+        expectedPath.add(5);
+        expectedPath.add(6);
+        expectedPath.add(4);
+        //Se comprueba si el camino devuelto es igual al esperado.
+        assertEquals(expectedPath, g.onePath(1, 4));
     }
 
     //*
