@@ -39,13 +39,13 @@ public class GraphTest {
     }
 
     @Test
-    public void addOneVertexTestOk(){
-        assertTrue(g.addVertex("v1"));
+    public void addOneVertexTestFail(){
+        g.addVertex("v1");
         assertFalse(g.addVertex("v1"));
     }
 
     @Test
-    public void addOneVertexTestFail(){
+    public void addOneVertexTestOk(){
         assertTrue(g.addVertex("v1"));
     }
 
@@ -73,18 +73,24 @@ public class GraphTest {
         assertTrue(g.addEdge("v1","v2"));
         assertFalse(g.addEdge("v1","v2"));
     }
+
     @Test
     public void addEdgeTestFailNonExists(){
         g.addVertex("v1");
         assertFalse(g.addEdge("v1","v2"));
     }
 
+    @Test
+    public void addEdgeSingleVertex(){
+        g.addVertex("v1");
+        assertTrue(g.addEdge("v1","v1"));
+    }
     @Test 
     public void obtainAdjacentsTestTrue() throws Exception {
         g.addVertex("v1");
         g.addVertex("v2");
         g.addEdge("v1", "v2");
-        assertNotNull(g.obtainAdjacents("v2"));
+        assertNotNull(g.obtainAdjacents("v1"));
     }
 
     @Test 
@@ -144,10 +150,16 @@ public class GraphTest {
         g.addVertex("v3");
         g.addVertex("v4");
         g.addVertex("v5");
+        g.addVertex("v6");
+        g.addVertex("v7");
+        g.addVertex("v8");
         g.addEdge("v1","v2");
         g.addEdge("v1","v5");
         g.addEdge("v2","v3");
-        g.addEdge("v3", "v4");
+        g.addEdge("v3","v4");
+        g.addEdge("v4","v6");
+        g.addEdge("v4","v7");
+        g.addEdge("v2","v8");
         List<String> camino = g.onePath("v1","v4");
         List<String> caminoEsperado = new ArrayList<>();
         caminoEsperado.add("v1");
@@ -158,7 +170,7 @@ public class GraphTest {
     }//*/
 
     @Test 
-    public void pathDontExists() {
+    public void pathDontExistUnconectedVertex() {
         g.addVertex("v1");
         g.addVertex("v2");
         g.addVertex("v3");
@@ -167,10 +179,10 @@ public class GraphTest {
         assertNull(camino);
     }//*/
 
-    /*@Test 
-    public void pathExistsOneVertex() {
+    @Test 
+    public void pathDontExistsUndefinedVertex() {
         g.addVertex("v1");
-        g.addEdge("v1","v1");
-        g.onePath("v1","v1");
-    }*/
+        List<String> camino = g.onePath("v1","v3");
+        assertNull(camino);
+    }
 }

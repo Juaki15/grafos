@@ -101,7 +101,9 @@ public class Graph<V>{
             } 
 
             if (!encontrado){
-                if (adjacencyList.get(verticeActual).isEmpty()) traza.remove(verticeActual);
+                if (adjacencyList.get(verticeActual).isEmpty()){ 
+                    traza.remove(verticeActual);
+                }
                 
                 for (V key : this.adjacencyList.get(verticeActual)) {
                     abierta.push(key);
