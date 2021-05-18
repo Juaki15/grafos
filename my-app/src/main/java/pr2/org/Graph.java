@@ -2,6 +2,11 @@ package pr2.org;
 
 import java.util.*;
 
+/**
+ * Esta clase contiene todos los metodos necesarios para elaborar un grafo e interactuar con él.
+ * @author Joaquin Moreno
+ * @version final 18/05/2021
+ */
 
 public class Graph<V>{
 

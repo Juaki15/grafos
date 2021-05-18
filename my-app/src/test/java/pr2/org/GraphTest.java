@@ -14,6 +14,12 @@ import java.util.*;
 
 import org.junit.Test;
 
+/**
+ * Esta clase contiene los tests necesarios para comprobar el correcto funcionamiento del programa.
+ * @author Joaquin Moreno
+ * @version final 18/05/2021
+ */
+
 public class GraphTest {
     
     public class Vertice {
@@ -185,7 +191,7 @@ public class GraphTest {
 
     /**Test para comprobar que no hay un camino de un vertice a otro (inconexos) dados en el grafo */
     @Test 
-    public void pathDontExistUnconectedVertex() {
+    public void pathDoesntExistUnconnectedVertex() {
         g.addVertex("v1");
         g.addVertex("v2");
         g.addVertex("v3");
@@ -196,7 +202,7 @@ public class GraphTest {
 
     /**Test para comprobar que no hay un camino de un vertice a otro si uno de los vertices no existe */
     @Test 
-    public void pathDontExistsUndefinedVertex() {
+    public void pathDoesntExistUndefinedVertex() {
         g.addVertex("v1");
         List<String> camino = g.onePath("v1","v3");
         assertNull(camino);
