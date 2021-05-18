@@ -22,43 +22,52 @@ public class GraphTest {
     
     Graph<String> g;
 
-    @Before
+    /**Test que sirve para comprobar que se puede crear el grafo */
+    @Before 
     public void setUp(){
         g = new Graph<String>();
     }
 
+    /**Test para verificar que el grafo que hemos creado existe */
     @Test
     public void graphExistsTest(){
         assertNotNull(g);
     }
 
+    /**Test para comprobar que el toString funciona correctamente */
     @Test
     public void toStringEmptyTest(){
         String expectedOutput = "Vértice\tConexiones\n";
         assertEquals(expectedOutput, g.toString());
     }
 
+    /**Test para verificar que no se puede annadir el mismo vertice dos veces */
     @Test
     public void addOneVertexTestFail(){
         g.addVertex("v1");
         assertFalse(g.addVertex("v1"));
     }
 
+    /**Test para comprobar que podemos annadir un vertice al grafo */
     @Test
     public void addOneVertexTestOk(){
         assertTrue(g.addVertex("v1"));
     }
 
-    //*
+    /**Otro test para comprobar que el toString funciona bien */
     @Test
     public void toStringTwoVertexTest(){
         g.addVertex("v1");
         g.addVertex("v0");
+        g.addEdge("v1","v0");
+        g.addEdge("v0","v1");
         String expectedOutput = "Vértice\tConexiones\n"
-            +"v0\t\n"
-            +"v1\t\n";
+            +"v0\t[v1]\n" 
+            +"v1\t[v0]\n" ;
         assertEquals(expectedOutput, g.toString());
-    }//*/
+    }
+
+    /**Test para comprobar que se puede annadir una arista a dos vertices existentes */
     @Test
     public void addEdgeTestOk(){
         g.addVertex("v1");
@@ -66,6 +75,7 @@ public class GraphTest {
         assertTrue(g.addEdge("v1","v2"));
     }
 
+    /**Test para comprobar que no se puede annadir la misma arista dos veces */
     @Test
     public void addEdgeTestFailDuplicated(){
         g.addVertex("v1");
@@ -74,17 +84,21 @@ public class GraphTest {
         assertFalse(g.addEdge("v1","v2"));
     }
 
+    /**Test para comprobar que no se puede annadir una arista si uno de los dos vertices dados no existen */
     @Test
     public void addEdgeTestFailNonExists(){
         g.addVertex("v1");
         assertFalse(g.addEdge("v1","v2"));
     }
 
+    /**Test para comprobar que podemos annadir una arista a un mismo vertice */
     @Test
     public void addEdgeSingleVertex(){
         g.addVertex("v1");
         assertTrue(g.addEdge("v1","v1"));
     }
+
+    /**Test para comprobar que los adyacentes de v1 no estan vacios */
     @Test 
     public void obtainAdjacentsTestTrue() throws Exception {
         g.addVertex("v1");
@@ -93,15 +107,13 @@ public class GraphTest {
         assertNotNull(g.obtainAdjacents("v1"));
     }
 
-    @Test 
+    /**Test para comprobar que v3 no tiene adyacentes */
+    @Test (expected = Exception.class)
     public void obtainAdjacentsTestFalse() throws Exception {
-        g.addVertex("v1");
-        g.addVertex("v2");
-        g.addVertex("v3");
-        g.addEdge("v1", "v2");
-        g.obtainAdjacents("v3");
+        this.g.obtainAdjacents("v1");
     }
 
+    /**Test para comprobar que el grafo contiene el vertice que hemos annadido */
     @Test
     public void containsVertexTestTrue() {
         g.addVertex("v1");
@@ -109,11 +121,13 @@ public class GraphTest {
 
     }
 
+    /**Test para comprobar que le grafo no contiene un vertice que no hemos annadido */
     @Test
     public void containsVertexTestFalse() {
-        assertFalse(g.containsVertex("v1"));
+        g.containsVertex("v1");
     }
 
+    /**Test para comprobar que encontramos un camino de un vertice a otro dados en el grafo */
     @Test
     public void onePathFindsAPath(){
         System.out.println("\nTest onePathFindsAPath");
@@ -142,7 +156,7 @@ public class GraphTest {
         assertEquals(expectedPath, g.onePath(1, 4));
     }
 
-    //*
+    /**Otro test para comprobar que encontramos un camino de un vertice a otro dados en el grafo */
     @Test
     public void pathExists(){
         g.addVertex("v1");
@@ -167,8 +181,9 @@ public class GraphTest {
         caminoEsperado.add("v3");
         caminoEsperado.add("v4");
         assertEquals(caminoEsperado,camino);
-    }//*/
+    }
 
+    /**Test para comprobar que no hay un camino de un vertice a otro (inconexos) dados en el grafo */
     @Test 
     public void pathDontExistUnconectedVertex() {
         g.addVertex("v1");
@@ -177,8 +192,9 @@ public class GraphTest {
         g.addEdge("v1", "v2");
         List<String> camino = g.onePath("v1","v3");
         assertNull(camino);
-    }//*/
+    }
 
+    /**Test para comprobar que no hay un camino de un vertice a otro si uno de los vertices no existe */
     @Test 
     public void pathDontExistsUndefinedVertex() {
         g.addVertex("v1");
